@@ -1,0 +1,1471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Climate Change & Al Furjan | The Arbor School</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="The Effects of Human Impacts on Climate Change in Al Furjan and The Arbor School" />
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+  <!-- Chart.js CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    :root {
+      --bg: #f8f3ec;
+      --bg-alt: #ffffff;
+      --primary: #f2994a;
+      --primary-dark: #d97920;
+      --accent: #2d9cdb;
+      --accent-dark: #1b6f9d;
+      --text: #1f2933;
+      --muted: #6b7280;
+      --shadow: 0 18px 40px rgba(15, 23, 42, 0.18);
+      --radius: 16px;
+      --transition: all 0.3s ease;
+    }
+
+    body.dark {
+      --bg: #020617;
+      --bg-alt: #040c1b;
+      --primary: #f2994a;
+      --primary-dark: #ffb366;
+      --accent: #38bdf8;
+      --accent-dark: #0ea5e9;
+      --text: #e5e7eb;
+      --muted: #9ca3af;
+      --shadow: 0 18px 40px rgba(0, 0, 0, 0.8);
+    }
+
+    * {
+      box-sizing: border-box;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: radial-gradient(circle at top, #fde68a 0, var(--bg) 45%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    /* Scroll progress bar */
+    #scrollProgress {
+      position: fixed;
+      top: 0;
+      left: 0;
+      height: 4px;
+      width: 0;
+      z-index: 2000;
+      background: linear-gradient(90deg, var(--accent), var(--primary));
+      box-shadow: 0 0 10px rgba(56, 189, 248, 0.7);
+    }
+
+    /* Navbar */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      backdrop-filter: blur(14px);
+      background: linear-gradient(90deg, rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.95));
+      color: #f9fafb;
+      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.65);
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0.6rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-weight: 700;
+      font-size: 1.1rem;
+      letter-spacing: 0.03em;
+    }
+
+    .brand span.logo-dot {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: conic-gradient(from 150deg, #22c55e, #0ea5e9, #f97316, #facc15, #22c55e);
+      box-shadow: 0 0 18px rgba(14, 165, 233, 0.9);
+    }
+
+    nav ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+      font-size: 0.85rem;
+    }
+
+    nav a {
+      color: #e5e7eb;
+      text-decoration: none;
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      transition: var(--transition);
+    }
+
+    nav a:hover {
+      background: rgba(248, 250, 252, 0.08);
+      color: #ffffff;
+      transform: translateY(-1px);
+    }
+
+    .controls {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .toggle-btn {
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.5);
+      color: #e5e7eb;
+      padding: 0.3rem 0.7rem;
+      cursor: pointer;
+      font-size: 0.75rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      transition: var(--transition);
+    }
+
+    .toggle-btn:hover {
+      background: rgba(15, 23, 42, 0.9);
+      transform: translateY(-1px);
+    }
+
+    .pill {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      background: rgba(34, 197, 94, 0.1);
+      color: #bbf7d0;
+      border: 1px solid rgba(34, 197, 94, 0.4);
+    }
+
+    /* Layout */
+    main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.8rem 1rem 3rem;
+    }
+
+    section {
+      margin-bottom: 3rem;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(40px);
+      opacity: 0;
+      transition: transform 0.7s ease, opacity 0.7s ease;
+    }
+
+    body.dark section {
+      background: radial-gradient(circle at top left, #020617, #020617 45%, #020617 100%);
+      border: 1px solid rgba(148, 163, 184, 0.12);
+    }
+
+    section.visible {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    section::before {
+      content: "";
+      position: absolute;
+      inset: -120px;
+      opacity: 0.06;
+      background: radial-gradient(circle at top left, #f97316, transparent 55%), radial-gradient(circle at bottom right, #0ea5e9, transparent 60%);
+      pointer-events: none;
+    }
+
+    section > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    h1, h2, h3 {
+      margin-top: 0;
+      letter-spacing: 0.03em;
+    }
+
+    h2 {
+      font-size: 1.7rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    h2 span.emoji {
+      font-size: 1.5rem;
+    }
+
+    p {
+      margin: 0.4rem 0 0.8rem;
+      color: var(--text);
+    }
+
+    .muted {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    /* Hero with parallax-style background */
+    .hero {
+      display: grid;
+      gap: 1.6rem;
+      grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
+      align-items: center;
+      background: radial-gradient(circle at top left, rgba(248, 250, 252, 0.95), rgba(224, 242, 254, 0.95));
+      position: relative;
+      overflow: hidden;
+    }
+
+    body.dark .hero {
+      background: radial-gradient(circle at top, #020617, #020617 40%, #0f172a 80%);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      background-image: url("https://upload.wikimedia.org/wikipedia/commons/6/6b/Desert_Landscape.jpg");
+      background-size: cover;
+      background-position: center;
+      opacity: 0.25;
+      transform: translateY(-8%);
+      transition: transform 0.8s ease-out;
+      pointer-events: none;
+    }
+
+    body.dark .hero::after {
+      opacity: 0.22;
+      filter: saturate(1.1) brightness(0.7);
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 3vw, 2.6rem);
+      margin-bottom: 0.3rem;
+    }
+
+    .hero-title-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      padding: 0.25rem 0.75rem;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      color: var(--muted);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.15em;
+    }
+
+    body.dark .hero-title-pill {
+      background: rgba(15, 23, 42, 0.6);
+      color: #e5e7eb;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin: 0.4rem 0 0.9rem;
+    }
+
+    .hero-tag {
+      font-size: 0.75rem;
+      padding: 0.25rem 0.7rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(255, 255, 255, 0.7);
+      backdrop-filter: blur(6px);
+    }
+
+    body.dark .hero-tag {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.4);
+    }
+
+    .cta-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      align-items: center;
+      margin-top: 0.8rem;
+    }
+
+    .btn-primary {
+      border: none;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.9rem;
+      padding: 0.6rem 1.2rem;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #0f172a;
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.45);
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      text-decoration: none;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px) scale(1.01);
+      box-shadow: 0 22px 40px rgba(15, 23, 42, 0.6);
+    }
+
+    .hero-right {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 0.8rem;
+    }
+
+    .hero-card {
+      background: rgba(248, 250, 252, 0.95);
+      border-radius: 18px;
+      padding: 0.7rem 0.9rem;
+      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.35);
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      display: flex;
+      align-items: center;
+      gap: 0.7rem;
+      font-size: 0.75rem;
+    }
+
+    body.dark .hero-card {
+      background: radial-gradient(circle at top left, #020617, #020617 55%, #020617);
+      border-color: rgba(148, 163, 184, 0.4);
+    }
+
+    .hero-card img {
+      width: 58px;
+      height: 58px;
+      border-radius: 14px;
+      object-fit: cover;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+    }
+
+    .hero-card small {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--muted);
+    }
+
+    .hero-card strong {
+      font-size: 0.8rem;
+    }
+
+    /* Grid layouts */
+    .grid-2 {
+      display: grid;
+      gap: 1.5rem;
+      grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+      align-items: flex-start;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.3rem;
+    }
+
+    .card {
+      background: rgba(248, 250, 252, 0.94);
+      border-radius: 14px;
+      padding: 1rem;
+      border: 1px solid rgba(148, 163, 184, 0.4);
+      box-shadow: 0 14px 30px rgba(15, 23, 42, 0.18);
+      font-size: 0.9rem;
+      transition: var(--transition);
+    }
+
+    body.dark .card {
+      background: rgba(15, 23, 42, 0.9);
+      border-color: rgba(148, 163, 184, 0.3);
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 18px 40px rgba(15, 23, 42, 0.6);
+    }
+
+    .icon-badge {
+      width: 32px;
+      height: 32px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: radial-gradient(circle at top left, var(--accent), var(--primary));
+      color: #0f172a;
+      margin-bottom: 0.3rem;
+      font-size: 1.1rem;
+    }
+
+    ul {
+      padding-left: 1.1rem;
+      margin: 0.4rem 0 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    li {
+      margin-bottom: 0.25rem;
+    }
+
+    /* Images */
+    figure {
+      margin: 0;
+      border-radius: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(148, 163, 184, 0.45);
+      box-shadow: 0 18px 35px rgba(15, 23, 42, 0.35);
+      background: #020617;
+    }
+
+    figure img {
+      display: block;
+      width: 100%;
+      height: auto;
+      max-height: 260px;
+      object-fit: cover;
+      transition: transform 0.7s ease;
+    }
+
+    figure:hover img {
+      transform: scale(1.02);
+    }
+
+    figcaption {
+      font-size: 0.75rem;
+      padding: 0.4rem 0.6rem;
+      color: #e5e7eb;
+      background: linear-gradient(to right, rgba(15, 23, 42, 0.95), rgba(30, 64, 175, 0.9));
+    }
+
+    /* Stats counters */
+    .stats-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .stat {
+      flex: 1 1 140px;
+      min-width: 130px;
+      padding: 0.8rem 0.9rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.95);
+      color: #e5e7eb;
+      font-size: 0.8rem;
+      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.75);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 1.4rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .stat span {
+      color: #bfdbfe;
+      font-size: 0.75rem;
+    }
+
+    /* Charts */
+    .chart-container {
+      position: relative;
+      height: 260px;
+      width: 100%;
+    }
+
+    /* Quiz */
+    .quiz {
+      margin-top: 1rem;
+      border-radius: 14px;
+      padding: 1rem;
+      background: rgba(15, 23, 42, 0.97);
+      color: #e5e7eb;
+      box-shadow: 0 16px 35px rgba(15, 23, 42, 0.9);
+    }
+
+    .quiz-question {
+      margin-bottom: 0.8rem;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.4);
+      padding-bottom: 0.7rem;
+    }
+
+    .quiz-question:last-child {
+      border-bottom: none;
+    }
+
+    .quiz-options button {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 0.45rem 0.6rem;
+      margin: 0.18rem 0;
+      border-radius: 10px;
+      border: 1px solid rgba(148, 163, 184, 0.5);
+      background: rgba(15, 23, 42, 0.9);
+      color: #e5e7eb;
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: var(--transition);
+    }
+
+    .quiz-options button:hover {
+      background: rgba(15, 23, 42, 1);
+      transform: translateY(-1px);
+    }
+
+    .quiz-feedback {
+      font-size: 0.8rem;
+      margin-top: 0.2rem;
+    }
+
+    .quiz-footer {
+      margin-top: 0.8rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.6rem;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.85rem;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.25rem;
+      padding: 0.25rem 0.6rem;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      border: 1px solid rgba(148, 163, 184, 0.6);
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    /* Buttons / interactive chips */
+    .pill-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem;
+      padding: 0.35rem 0.8rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148, 163, 184, 0.7);
+      background: rgba(248, 250, 252, 0.9);
+      cursor: pointer;
+      font-size: 0.8rem;
+      margin: 0.15rem 0.15rem 0 0;
+      transition: var(--transition);
+    }
+
+    body.dark .pill-button {
+      background: rgba(15, 23, 42, 0.95);
+    }
+
+    .pill-button span.icon {
+      font-size: 1rem;
+    }
+
+    .pill-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 25px rgba(15, 23, 42, 0.45);
+    }
+
+    .tip {
+      margin-top: 0.35rem;
+      padding: 0.5rem 0.65rem;
+      border-radius: 10px;
+      background: rgba(34, 197, 94, 0.09);
+      border: 1px dashed rgba(22, 163, 74, 0.7);
+      font-size: 0.8rem;
+    }
+
+    /* Quotes */
+    blockquote {
+      margin: 0.7rem 0;
+      padding: 0.7rem 0.9rem;
+      border-left: 3px solid var(--accent);
+      background: rgba(15, 23, 42, 0.04);
+      border-radius: 0 12px 12px 0;
+      font-size: 0.9rem;
+    }
+
+    body.dark blockquote {
+      background: rgba(15, 23, 42, 0.8);
+    }
+
+    blockquote footer {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* Contact */
+    .contact-info {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1rem;
+      margin-top: 0.6rem;
+    }
+
+    .contact-card {
+      padding: 0.8rem 0.9rem;
+      border-radius: 12px;
+      background: rgba(15, 23, 42, 0.96);
+      color: #e5e7eb;
+      border: 1px solid rgba(148, 163, 184, 0.55);
+      font-size: 0.9rem;
+    }
+
+    .contact-card a {
+      color: #bfdbfe;
+      text-decoration: none;
+    }
+
+    .contact-card a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 1rem 2rem;
+      font-size: 0.8rem;
+      color: var(--muted);
+      text-align: center;
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero {
+        grid-template-columns: minmax(0, 1fr);
+      }
+      .hero::after {
+        opacity: 0.28;
+      }
+      .grid-2 {
+        grid-template-columns: minmax(0, 1fr);
+      }
+    }
+
+    @media (max-width: 640px) {
+      .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      nav ul {
+        justify-content: center;
+      }
+      section {
+        padding: 1.4rem;
+      }
+      .hero-card {
+        flex-direction: row;
+      }
+      figure img {
+        max-height: 220px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="scrollProgress"></div>
+
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <span class="logo-dot"></span>
+        <span>Climate &amp; Al Furjan</span>
+      </div>
+      <nav>
+        <ul>
+          <li><a href="#hero">Home</a></li>
+          <li><a href="#climate">Climate Change</a></li>
+          <li><a href="#human-impacts">Human Impacts</a></li>
+          <li><a href="#ecosystems">Ecosystems</a></li>
+          <li><a href="#arbor">The Arbor School</a></li>
+          <li><a href="#dubai-solutions">Dubai Solutions</a></li>
+          <li><a href="#stats">Statistics</a></li>
+          <li><a href="#solutions">Actions</a></li>
+          <li><a href="#quiz">Quiz</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </nav>
+      <div class="controls">
+        <span class="pill">Year 10 • The Arbor School</span>
+        <button class="toggle-btn" id="darkToggle" aria-label="Toggle dark mode">
+          <span>Dark</span> 🌙
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- HERO -->
+    <section id="hero" class="hero">
+      <div class="hero-inner">
+        <div class="hero-title-pill">
+          <span>LOCAL CLIMATE LEARNING</span>
+        </div>
+        <h1>Climate Change &amp; Al Furjan</h1>
+        <p><strong>Human-made</strong> climate change is affecting ecosystems in Al Furjan and nearby coastal areas, yet many students are still unaware of these local impacts.</p>
+        <p class="muted">Our goal is to educate students at The Arbor School about how climate change is shaping their community and to inspire practical, sustainable actions.</p>
+
+        <div class="hero-tags">
+          <span class="hero-tag">Al Furjan &amp; Dubai</span>
+          <span class="hero-tag">The Arbor School</span>
+          <span class="hero-tag">Local ecosystems</span>
+          <span class="hero-tag">Student action</span>
+        </div>
+
+        <div class="cta-row">
+          <a href="#climate" class="btn-primary">
+            <span>Learn More</span> →
+          </a>
+          <span class="muted">Produced by Jack, Jenna, Adam, and Asmaa.</span>
+        </div>
+      </div>
+
+      <div class="hero-right">
+        <div class="hero-card">
+<img src="https://cdn1-m.alittihad.ae/store/archive/image/2023/12/19/6079c9ea-604a-41fc-b02b-924085c10516.jpeg" alt="Mangroves growing along Dubai's coast" />
+          <div>
+            <small>MANGROVES &amp; CLIMATE</small>
+           <strong>Mangrove forests along Dubai’s coast store carbon and protect the shoreline from erosion and storms.</strong>
+          </div>
+        </div>
+
+        <div class="hero-card">
+          <img src="https://climateactiontracker.org/media/original_images/2025/5/CAT_2025.05_Graph_Benchmarks_UAE_0_PowerMix.png" alt="UAE power generation mix and emissions graph" />
+          <div>
+            <small>HUMAN IMPACTS</small>
+            <strong>Energy production and fossil fuel use contribute to greenhouse gas emissions in the UAE.</strong>
+            <small>Photo: </small>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 1: WHAT IS CLIMATE CHANGE -->
+    <section id="climate">
+      <h2><span class="emoji">🌡</span> What Is Climate Change?</h2>
+      <div class="grid-2">
+        <div>
+          <p>Climate change is the long-term warming of Earth’s climate system, mainly caused by extra greenhouse gases from human activities like burning fossil fuels and deforestation.</p>
+          <ul>
+            <li>Greenhouse gases such as carbon dioxide, methane, and nitrous oxide trap more heat in the atmosphere.</li>
+            <li>Burning oil and gas for electricity, cooling, and transport releases large amounts of these gases.</li>
+            <li>Deforestation and land use changes remove plants that normally absorb carbon dioxide.</li>
+            <li>As the planet warms, we see higher temperatures, sea level rise, stronger heat waves, and shifting rainfall patterns.</li>
+          </ul>
+
+          <blockquote>
+            “The Arbor School approaches ecoliteracy and climate change with optimism, helping students see themselves as active problem-solvers rather than passive observers.”
+            <footer>Adapted from The Arbor School’s ecological approach and curriculum vision.</footer>
+          </blockquote>
+
+          <p class="muted">Problem: Students at The Arbor School may learn about global climate change but often lack clear information about impacts right here in Al Furjan and Dubai.</p>
+        </div>
+
+        <div>
+          <h3>Simple Greenhouse Effect Diagram</h3>
+         <img src="https://www.climate.gov/sites/default/files/2024-09/CLG_Slide%2024_GHG%20Diagram_EP%202%20Graphic.png" alt="Greenhouse Effect Diagram" style="width:100%; height:auto;">
+	</div>
+
+
+<p class="muted">
+</p>
+          
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 2: HUMAN IMPACTS IN AL FURJAN & DUBAI -->
+    <section id="human-impacts">
+      <h2><span class="emoji">🏙</span> Human Impacts in Al Furjan &amp; Dubai</h2>
+      <div class="grid-2">
+        <div>
+          <p>Al Furjan is part of a rapidly growing area of Dubai, with new residential communities, roads, and infrastructure that increase energy use and emissions.[web:13]</p>
+          <p class="muted">Dubai’s growth, desalination plants, artificial islands, and high demand for cooling place extra pressure on the Gulf’s water, marine life, and climate.[web:2]</p>
+
+          <div class="grid-3">
+            <div class="card">
+              <div class="icon-badge">🏗</div>
+              <h3>Urban expansion</h3>
+              <p>Construction of new communities, towers, and roads replaces natural desert habitats and increases heat stored by buildings and asphalt.[web:13]</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge">🌴</div>
+              <h3>Artificial islands</h3>
+              <p>The Palm and other land-reclamation projects change currents and coastal water temperatures, putting stress on coral reefs and marine life.[web:2]</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge">❄️</div>
+              <h3>High energy use</h3>
+              <p>Air conditioning is essential in Dubai’s extreme heat, but it increases electricity demand and emissions if powered by fossil fuels.[web:8]</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge">🚗</div>
+              <h3>Transport emissions</h3>
+              <p>Cars, trucks, and planes emit carbon dioxide and other pollutants, although public transport and greener mobility strategies help cut emissions.</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge">🏖</div>
+              <h3>Tourism &amp; lifestyle</h3>
+              <p>Tourism, malls, and attractions use large amounts of energy and water but also create chances to showcase sustainable design and green building.</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge">💧</div>
+              <h3>Water desalination</h3>
+              <p>Dubai relies on desalination, which is energy-intensive and produces salty brine that can harm marine ecosystems if not managed carefully.</p>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <figure>
+  <img src="https://media.cnn.com/api/v1/images/stellar/prod/210615215438-03-palm-jumeirah-20-spc-intl.jpg?q=w_1600,h_1033,x_0,y_0,c_fill" 
+       alt="Aerial view of Palm Jumeirah artificial island in Dubai" />
+  <figcaption>Artificial islands like Palm Jumeirah alter currents, temperatures, and habitats in the Gulf. Image source: CNN.</figcaption>
+</figure>
+          <p class="muted">Dubai has invested in more efficient power and water production, cutting millions of tonnes of carbon dioxide emissions by improving plant efficiency.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 3: EFFECTS ON LOCAL ECOSYSTEMS -->
+    <section id="ecosystems">
+      <h2><span class="emoji">🐠</span> Effects on Local Ecosystems</h2>
+      <div class="grid-2">
+        <div>
+          <p>Climate change and local human activities affect coral reefs, marine life, mangroves, and desert species around Dubai.</p>
+          <ul>
+            <li><strong>Coral reefs</strong> are stressed by warmer waters and changes in water quality, which can lead to coral bleaching and biodiversity loss.</li>
+            <li><strong>Mangroves</strong> sequester carbon, protect the coast, and support fish nurseries, but sea-level rise and coastal development can damage these forests.</li>
+            <li><strong>Desert wildlife</strong> such as camels, reptiles, and birds face higher heat stress and less available water as temperatures rise.</li>
+            <li><strong>Seagrass beds</strong> and marine ecosystems are sensitive to changes in salinity and temperature from desalination and warming.[web:6]</li>
+          </ul>
+
+          <div class="stats-row">
+            <div class="stat" data-target="1230000">
+              <strong class="stat-number">0</strong>
+              <span>Tonnes of CO₂ mangroves in a major Dubai coastal project could store each year.[web:3][web:25]</span>
+            </div>
+            <div class="stat" data-target="92500000">
+              <strong class="stat-number">0</strong>
+              <span>Tonnes of CO₂ Dubai cut from 2006–2023 through better power and water efficiency.[web:5]</span>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <figure>
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSaXpqoU0_vaEEkCNcnAe6OboTOrxAoXAh0xg&s"
+ alt="Coral reef and fish underwater" />
+            <figcaption>Coral ecosystems are highly sensitive to temperature and pollution, making them vulnerable to climate change.[web:6]</figcaption>
+          </figure>
+          <p class="muted">Large projects such as “Dubai Mangroves” and “Dubai Reefs” highlight how restoring mangroves and coral can support biodiversity, protect coasts, and capture carbon.
+          <div class="grid-3" style="margin-top:0.7rem;">
+            <div class="card">
+              <div class="icon-badge">🐪</div>
+              <p>Camels and desert species must cope with hotter days, fewer cool nights, and drier soils.</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge">🦅</div>
+              <p>Falcons and other birds depend on healthy habitats and may shift ranges as climate patterns change.</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge">🐟</div>
+              <p>Marine life faces combined pressures from warming seas, salinity changes, and coastal construction.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- THE ARBOR SCHOOL -->
+    <section id="arbor">
+      <h2><span class="emoji">🏫</span> The Arbor School &amp; Sustainability Policies</h2>
+      <div class="grid-2">
+        <div>
+          <p>The Arbor School in Al Furjan is an ecological British-curriculum school built on the three pillars of ecoliteracy, sustainability, and environmental justice.[web:11][web:17][web:20]</p>
+          <p class="muted">Its vision “Enough for all, forever” guides policies that encourage students to understand and act on local and global climate challenges.[web:17][web:20]</p>
+
+          <div class="grid-3">
+            <div class="card">
+              <div class="icon-badge">🧠</div>
+              <h3>Ecoliteracy framework</h3>
+              <p>The curriculum integrates ecoliteracy across subjects, helping students analyse biodiversity, climate justice, and sustainable development from Key Stage 3 to Sixth Form.[web:14][web:20]</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge">🌍</div>
+              <h3>“Head, Heart, Hands, Spirit”</h3>
+              <p>Arbor’s approach develops scientific understanding, emotional connection, practical action, and reflective purpose in environmental learning.[web:12]</p>
+            </div>
+            <div class="card">
+              <div class="icon-badge">♻️</div>
+              <h3>School-wide policies</h3>
+              <p>Policies promote reduced waste, careful energy and water use, sustainable transport choices, and community projects linked to local ecosystems.[web:11][web:17]</p>
+            </div>
+          </div>
+
+          <ul>
+            <li>Students learn in biodomes, gardens, and “living classrooms” that connect lessons to real ecosystems.[web:11][web:17]</li>
+            <li>Secondary students study Global Perspectives and eco-focused projects that link directly to climate and sustainability issues.[web:13][web:14]</li>
+            <li>Partnerships and events such as eco-walks and coastal activities link school learning to wider community action.[web:12][web:15]</li>
+          </ul>
+        </div>
+
+        <div>
+          <figure>
+            <img src="https://www.proactive.ae/wp-content/uploads/2020/10/Arbor_school_cover.jpg" 
+     alt="The Arbor School climate-controlled biodome and garden" />
+            <figcaption>The Arbor School uses climate-controlled biodomes and gardens as outdoor classrooms to deepen students’ ecological understanding and climate awareness.</figcaption>
+          </figure>
+          <p class="muted">By embedding ecoliteracy into the curriculum, Arbor’s policies aim to ensure students leave school with both the knowledge and willingness to take environmental action.[web:14][web:20]</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEW: WHAT DUBAI CAN DO -->
+    <section id="dubai-solutions">
+      <h2><span class="emoji">🏜</span> What Dubai Can Do</h2>
+      <div class="grid-2">
+        <div>
+          <p>Dubai is already launching major initiatives to tackle climate change, and there are more actions the city can take to protect areas like Al Furjan and the Gulf coast.</p>
+          <ul>
+            <li><strong>Expand mangrove restoration</strong>: Projects to plant 100 million mangrove trees along 72 km of coastline could store over 1 million tonnes of CO₂ each year and protect coasts from storms.[web:3][web:25]</li>
+            <li><strong>Increase clean energy</strong>: Building more solar farms and phasing out fossil fuels in power plants would cut emissions from electricity and water desalination.</li>
+            <li><strong>Greener buildings &amp; cooling</strong>: Designing highly efficient buildings, using better insulation, district cooling, and smart controls can reduce AC energy use in hot districts like Al Furjan.[web:8]</li>
+            <li><strong>Low-carbon transport</strong>: Expanding metro and tram lines, improving buses, safe cycling routes, and encouraging electric vehicles can lower transport emissions.[web:5]</li>
+            <li><strong>Protect marine habitats</strong>: Stronger rules on brine disposal, wastewater, and coastal construction can help coral reefs, seagrass, and fish nurseries recover.[web:2][web:6]</li>
+            <li><strong>Educate and involve residents</strong>: Supporting schools such as The Arbor School, citizen science, and community campaigns ensures people understand both problems and solutions.[web:11][web:17]</li>
+          </ul>
+        </div>
+
+        <div>
+          <figure>
+            <img src="https://elements-resized.envatousercontent.com/elements-video-cover-images/8d760385-c112-48da-bd03-48eb639505a2/video_preview/video_preview_0000.jpg?w=1200&h=630&cf_fit=crop&q=85&format=jpeg&s=50fb53244984f917879666c0a3298bbd98d5667e211cc03b2136605df7657e7d" alt="Dubai skyline wide view" />
+        <figcaption>Wide view of Dubai skyline and waterfront. Dubai’s green vision depends on both large projects and everyday choices made by residents, schools, and local communities.[web:3][web:5][web:25]</figcaption>
+          </figure>
+          <p class="muted">Dubai’s green vision depends on both large projects and everyday choices made by residents, schools, and local communities.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- STATISTICS -->
+    <section id="stats">
+      <h2><span class="emoji">📊</span> Real Statistics &amp; Data</h2>
+      <div class="grid-2">
+        <div>
+          <p>These simplified graphs use real examples and trends from Dubai and the Gulf region.</p>
+          <ul>
+            <li>Dubai’s electricity and water authority improved production efficiency and reduced carbon emissions by tens of millions of tonnes in under two decades.[web:5]</li>
+            <li>Desalination plants in Dubai produce large volumes of drinking water but also discharge concentrated brine into the Gulf.</li>
+            <li>Mangrove restoration projects in Dubai could store millions of tonnes of carbon each year while protecting the coastline.</li>
+          </ul>
+          <p class="muted">Values in the charts are educational approximations built from reported trends, not exact official numbers for every year.</p>
+        </div>
+
+        <div>
+          <div class="chart-container">
+            <canvas id="emissionsChart" aria-label="Example line graph of Dubai power sector emissions trend" role="img"></canvas>
+          </div>
+          <div class="chart-container" style="margin-top:1.2rem;">
+            <canvas id="waterChart" aria-label="Example bar chart of desalinated water and brine discharge" role="img"></canvas>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SOLUTIONS FOR STUDENTS -->
+    <section id="solutions">
+      <h2><span class="emoji">🌱</span> Solutions &amp; Actions for Students</h2>
+      <div class="grid-2">
+        <div>
+          <p><strong>Every student</strong> at The Arbor School can make a difference by changing daily habits, supporting school projects, and sharing what they learn with others.</p>
+
+          <div>
+            <button class="pill-button" onclick="toggleTip('energyTip')">
+              <span class="icon">💡</span>
+              <span>Reduce energy use</span>
+              <span>▼</span>
+            </button>
+            <div id="energyTip" class="tip" style="display:none;">
+              Choose efficient settings for AC at home, switch off lights and devices when not needed, and close doors and windows to keep cool air in.
+            </div>
+
+            <button class="pill-button" onclick="toggleTip('transportTip')">
+              <span class="icon">🚆</span>
+              <span>Sustainable transport</span>
+              <span>▼</span>
+            </button>
+            <div id="transportTip" class="tip" style="display:none;">
+              Walk, cycle, share rides with family and friends, or use the Metro and other public transport whenever possible.
+            </div>
+
+            <button class="pill-button" onclick="toggleTip('waterTip')">
+              <span class="icon">🚿</span>
+              <span>Save water</span>
+              <span>▼</span>
+            </button>
+            <div id="waterTip" class="tip" style="display:none;">
+              Take shorter showers, turn off taps while brushing teeth, and report leaks at school or home to reduce pressure on desalination.
+            </div>
+
+            <button class="pill-button" onclick="toggleTip('projectsTip')">
+              <span class="icon">🌳</span>
+              <span>Support eco-projects</span>
+              <span>▼</span>
+            </button>
+            <div id="projectsTip" class="tip" style="display:none;">
+              Join or start school initiatives such as tree planting, mangrove research, waste reduction campaigns, or energy audits.
+            </div>
+
+            <button class="pill-button" onclick="toggleTip('awarenessTip')">
+              <span class="icon">📣</span>
+              <span>Raise awareness</span>
+              <span>▼</span>
+            </button>
+            <div id="awarenessTip" class="tip" style="display:none;">
+              Present your findings to classmates, families, and the wider community, and use creative projects to explain local climate issues.
+            </div>
+          </div>
+        </div>
+
+        <div>
+         <p>Switching to greener transport and energy can lower emissions from busy urban corridors like those near Al Furjan. Image source: Al Ittihad.</p>
+           <img src="https://cdn1-m.alittihad.ae/store/archive/image/2024/7/10/d889bf00-f91e-4eaf-8819-651f84fc2edb.jpg" alt="Sheikh Zayed Road Dubai" style="width:100%; height:auto;">
+            <figcaption>Switching to greener transport and energy can lower emissions from busy urban corridors like those near Al Furjan. Image source: Al Ittihad..</figcaption>
+          </figure>
+          <p class="muted">Large city projects matter, but everyday choices by thousands of students also add up to significant climate action over time.</p>
+        </div>
+      </div>
+    </section>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- QUIZ -->
+    <section id="quiz">
+      <h2><span class="emoji">🧠</span> Test Your Understanding – Interactive Quiz</h2>
+      <p class="muted">Answer 10 multiple-choice questions about climate change, local impacts, ecosystems, and solutions. Click an answer to see feedback instantly.</p>
+
+      <div class="quiz" id="quizContainer">
+        <!-- Quiz questions will be injected by JavaScript -->
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+      <h2><span class="emoji">📞</span> Contact Us</h2>
+      <p>If you want to learn more, share ideas, or collaborate on climate projects at The Arbor School, please get in touch.</p>
+
+      <div class="contact-info">
+        <div class="contact-card">
+          <strong>Email</strong>
+          <p><a href="mailto:AF2062@thearborschool.ae">AF2062@thearborschool.ae</a></p>
+          <p class="muted">Use this email to send questions, share your project ideas, or ask for resources.</p>
+        </div>
+        <div class="contact-card">
+          <strong>Phone</strong>
+          <p><a href="tel:+971585913574">+971 058 591 3574</a></p>
+          <p class="muted">You can also reach out for school-related sustainability events and initiatives.</p>
+        </div>
+        <div class="contact-card">
+          <strong>Project Credits</strong>
+          <p>Produced by Jack, Jenna, Adam, and Asmaa.</p>
+          <p class="muted">The project focuses on local climate impacts in Al Furjan and The Arbor School community.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Images sourced from Wikimedia Commons and similar registered/public-domain sources; key data and Arbor information drawn from reports and official school materials.[web:2][web:3][web:5][web:6][web:8][web:11][web:13][web:14][web:17][web:20][web:21][web:24][web:25][web:26][web:27]</p>
+    <p>“The Effects of Human Impacts on Climate Change in Al Furjan and The Arbor School” – Educational website for Year 10 students.</p>
+  </footer>
+
+  <script>
+    // Dark mode toggle
+    const darkToggle = document.getElementById('darkToggle');
+    const body = document.body;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      body.classList.add('dark');
+    }
+    darkToggle.addEventListener('click', () => {
+      body.classList.toggle('dark');
+    });
+
+    // Scroll progress bar
+    const scrollProgress = document.getElementById('scrollProgress');
+    window.addEventListener('scroll', () => {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const scrolled = (scrollTop / docHeight) * 100;
+      scrollProgress.style.width = scrolled + '%';
+    });
+
+    // Section reveal on scroll
+    const sections = document.querySelectorAll('section');
+    const revealOnScroll = () => {
+      const triggerBottom = window.innerHeight * 0.9;
+      sections.forEach(sec => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top < triggerBottom) {
+          sec.classList.add('visible');
+        }
+      });
+    };
+    window.addEventListener('scroll', revealOnScroll);
+    window.addEventListener('load', revealOnScroll);
+
+    // Toggle tips in solutions section
+    function toggleTip(id) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.style.display = (el.style.display === 'none' || el.style.display === '') ? 'block' : 'none';
+    }
+    window.toggleTip = toggleTip;
+
+    // Stats counters animation
+    const statElements = document.querySelectorAll('.stat');
+    let statsAnimated = false;
+    function animateStats() {
+      if (statsAnimated) return;
+      const triggerPos = window.innerHeight * 0.85;
+      statElements.forEach(stat => {
+        const rect = stat.getBoundingClientRect();
+        if (rect.top < triggerPos) {
+          const target = parseInt(stat.getAttribute('data-target'), 10);
+          const numberEl = stat.querySelector('.stat-number');
+          let current = 0;
+          const duration = 1600;
+          const startTime = performance.now();
+
+          function update(now) {
+            const progress = Math.min((now - startTime) / duration, 1);
+            current = Math.floor(progress * target);
+            if (target >= 1000000) {
+              numberEl.textContent = (current / 1000000).toFixed(1) + 'M';
+            } else if (target >= 1000) {
+              numberEl.textContent = (current / 1000).toFixed(1) + 'K';
+            } else {
+              numberEl.textContent = current;
+            }
+            if (progress < 1) {
+              requestAnimationFrame(update);
+            }
+          }
+          requestAnimationFrame(update);
+        }
+      });
+      statsAnimated = true;
+    }
+    window.addEventListener('scroll', animateStats);
+
+    // Charts
+    const emissionsCtx = document.getElementById('emissionsChart');
+    const waterCtx = document.getElementById('waterChart');
+
+    if (emissionsCtx && waterCtx) {
+      new Chart(emissionsCtx, {
+        type: 'line',
+        data: {
+          labels: ['2006', '2010', '2014', '2018', '2023'],
+          datasets: [{
+            label: 'Relative CO₂ emissions from power & water (index)',
+            data: [100, 92, 82, 70, 58],
+            borderColor: '#f97316',
+            backgroundColor: 'rgba(249, 115, 22, 0.2)',
+            tension: 0.3,
+            pointRadius: 3
+          }]
+        },
+        options: {
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: { callbacks: { label: ctx => ctx.parsed.y + ' (2006 = 100)' } }
+          },
+          scales: {
+            x: { title: { display: true, text: 'Year' } },
+            y: { title: { display: true, text: 'Index (2006 = 100)' }, min: 40, max: 110 }
+          }
+        }
+      });
+
+      new Chart(waterCtx, {
+        type: 'bar',
+        data: {
+          labels: ['Desalinated water', 'Brine discharge'],
+          datasets: [{
+            label: 'Daily volume (relative example)',
+            data: [1, 1.5],
+            backgroundColor: ['#0ea5e9', '#1d4ed8']
+          }]
+        },
+        options: {
+          indexAxis: 'y',
+          responsive: true,
+          plugins: {
+            legend: { display: false },
+            tooltip: {
+              callbacks: {
+                label: ctx => ctx.parsed.x + ' units (brine > water)'
+              }
+            }
+          },
+          scales: {
+            x: { title: { display: true, text: 'Relative volume' }, min: 0, max: 2 },
+            y: { title: { display: false } }
+          }
+        }
+      });
+    }
+
+    // Quiz data
+    const quizData = [
+      {
+        question: "1. What is the main cause of current climate change?",
+        options: [
+          "Natural changes in the sun’s brightness",
+          "Human activities that release greenhouse gases",
+          "The moon getting closer to Earth",
+          "Random weather changes"
+        ],
+        answer: 1
+      },
+      {
+        question: "2. Which gas is the best example of a greenhouse gas from human activities?",
+        options: [
+          "Oxygen (O₂)",
+          "Nitrogen (N₂)",
+          "Carbon dioxide (CO₂)",
+          "Helium (He)"
+        ],
+        answer: 2
+      },
+      {
+        question: "3. Which human activity in Dubai uses a lot of energy and affects the climate?",
+        options: [
+          "Planting mangroves",
+          "Air conditioning in buildings",
+          "Reading books at home",
+          "Playing sports outdoors"
+        ],
+        answer: 1
+      },
+      {
+        question: "4. What is one impact of desalination on the marine environment?",
+        options: [
+          "It cools the sea and protects corals",
+          "It creates fresh snow in the desert",
+          "It produces salty brine that can harm marine life",
+          "It removes all pollution from the sea"
+        ],
+        answer: 2
+      },
+      {
+        question: "5. Which statement about mangroves near Dubai is most accurate?",
+        options: [
+          "They have no effect on climate change",
+          "They store carbon and protect the coastline",
+          "They only grow in very cold water",
+          "They are not found near cities"
+        ],
+        answer: 1
+      },
+      {
+        question: "6. How can transport choices in Al Furjan help reduce emissions?",
+        options: [
+          "Driving alone for every short trip",
+          "Taking the Metro, walking, cycling, or sharing rides",
+          "Removing all buses and trains",
+          "Flying instead of driving"
+        ],
+        answer: 1
+      },
+      {
+        question: "7. What is one effect of warmer seas on coral reefs?",
+        options: [
+          "They become stronger and more colourful forever",
+          "They can bleach and lose the algae they need to survive",
+          "They move onto land and grow in deserts",
+          "They stop interacting with fish"
+        ],
+        answer: 1
+      },
+      {
+        question: "8. Which everyday action best reduces water use at home or school?",
+        options: [
+          "Leaving taps running while brushing teeth",
+          "Taking shorter showers and fixing leaks",
+          "Watering gardens at midday in summer",
+          "Running half-empty dishwashers"
+        ],
+        answer: 1
+      },
+      {
+        question: "9. Why are large projects like Dubai Mangroves and Dubai Reefs important?",
+        options: [
+          "They remove all cities from the coastline",
+          "They restore habitats, store carbon, and protect coasts",
+          "They only make new tourist attractions",
+          "They reduce rainfall to zero"
+        ],
+        answer: 1
+      },
+      {
+        question: "10. How can you personally support climate action at The Arbor School?",
+        options: [
+          "Ignore climate topics in lessons",
+          "Waste energy and water in school",
+          "Join eco-clubs, research projects, or awareness campaigns",
+          "Discourage friends from recycling"
+        ],
+        answer: 2
+      }
+    ];
+
+    const quizContainer = document.getElementById('quizContainer');
+
+    function renderQuiz() {
+      quizContainer.innerHTML = '';
+      quizData.forEach((q, index) => {
+        const qDiv = document.createElement('div');
+        qDiv.className = 'quiz-question';
+        qDiv.dataset.index = index;
+
+        const qText = document.createElement('p');
+        qText.textContent = q.question;
+        qDiv.appendChild(qText);
+
+        const optionsDiv = document.createElement('div');
+        optionsDiv.className = 'quiz-options';
+
+        q.options.forEach((opt, i) => {
+          const btn = document.createElement('button');
+          btn.textContent = opt;
+          btn.addEventListener('click', () => handleAnswer(index, i, qDiv));
+          optionsDiv.appendChild(btn);
+        });
+
+        qDiv.appendChild(optionsDiv);
+
+        const feedback = document.createElement('div');
+        feedback.className = 'quiz-feedback';
+        feedback.id = 'feedback-' + index;
+        qDiv.appendChild(feedback);
+
+        quizContainer.appendChild(qDiv);
+      });
+
+      const footer = document.createElement('div');
+      footer.className = 'quiz-footer';
+      footer.innerHTML = `
+        <div>
+          <span class="badge"><span>✅</span> Score: <span id="quizScore">0</span> / ${quizData.length}</span>
+        </div>
+        <button class="toggle-btn" type="button" onclick="resetQuiz()">Reset quiz</button>
+        <div id="quizMessage" class="muted"></div>
+      `;
+      quizContainer.appendChild(footer);
+    }
+
+    let score = 0;
+    let answered = 0;
+
+    function handleAnswer(qIndex, optionIndex, qDiv) {
+      const correct = quizData[qIndex].answer;
+      const feedback = document.getElementById('feedback-' + qIndex);
+      const buttons = qDiv.querySelectorAll('.quiz-options button');
+
+      if (feedback.dataset.answered === 'true') return;
+
+      feedback.dataset.answered = 'true';
+      answered++;
+
+      if (optionIndex === correct) {
+        score++;
+        feedback.textContent = 'Correct! Well done.';
+        feedback.style.color = '#4ade80';
+      } else {
+        feedback.textContent = 'Not quite. Try reviewing the section above.';
+        feedback.style.color = '#f97316';
+      }
+
+      buttons.forEach((btn, idx) => {
+        btn.disabled = true;
+        if (idx === correct) {
+          btn.style.borderColor = '#4ade80';
+        } else if (idx === optionIndex) {
+          btn.style.borderColor = '#f97316';
+        }
+      });
+
+      document.getElementById('quizScore').textContent = score;
+      updateQuizMessage();
+    }
+
+    function updateQuizMessage() {
+      const msg = document.getElementById('quizMessage');
+      if (answered < quizData.length / 2) {
+        msg.textContent = 'Keep going – you are building strong climate knowledge.';
+      } else if (score >= 8) {
+        msg.textContent = 'Excellent! You could help lead climate projects at The Arbor School.';
+      } else if (score >= 5) {
+        msg.textContent = 'Good work. Review any questions you missed and try again.';
+      } else {
+        msg.textContent = 'Everyone starts somewhere – revisit the sections and retake the quiz.';
+      }
+    }
+
+    function resetQuiz() {
+      score = 0;
+      answered = 0;
+      renderQuiz();
+      document.getElementById('quizScore').textContent = '0';
+      document.getElementById('quizMessage').textContent = 'Quiz reset. Try to improve your score!';
+    }
+    window.resetQuiz = resetQuiz;
+
+    renderQuiz();
+  </script>
+</body>
+</html>
