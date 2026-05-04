@@ -170,17 +170,16 @@
     }
 
     section {
-  margin-bottom: 3rem;
-  background: var(--bg-alt);
-  border-radius: var(--radius);
-  padding: 2rem;
-  box-shadow: var(--shadow);
-  position: relative;
-  overflow: hidden;
-  transform: translateY(40px);
-  opacity: 0;
-  transition: transform 0.7s ease, opacity 0.7s ease;
-  color: var(--text);
+      margin-bottom: 3rem;
+      background: var(--bg-alt);
+      border-radius: var(--radius);
+      padding: 2rem;
+      box-shadow: var(--shadow);
+      position: relative;
+      overflow: hidden;
+      transform: translateY(40px);
+      opacity: 0;
+      transition: transform 0.7s ease, opacity 0.7s ease;
     }
 
     body.dark section {
@@ -1070,10 +1069,10 @@
         </div>
 
         <div>
-     <figure>
-  <img src="https://cdn1-m.alittihad.ae/store/archive/image/2024/7/10/d889bf00-f91e-4eaf-8819-651f84fc2edb.jpg" alt="Sheikh Zayed Road Dubai" style="width:100%; height:auto;">
-  <figcaption>Switching to greener transport and energy can lower emissions from busy urban corridors like those near Al Furjan. Image source: Al Ittihad.</figcaption>
-</figure>
+         <p>Switching to greener transport and energy can lower emissions from busy urban corridors like those near Al Furjan. Image source: Al Ittihad.</p>
+           <img src="https://cdn1-m.alittihad.ae/store/archive/image/2024/7/10/d889bf00-f91e-4eaf-8819-651f84fc2edb.jpg" alt="Sheikh Zayed Road Dubai" style="width:100%; height:auto;">
+            <figcaption>Switching to greener transport and energy can lower emissions from busy urban corridors like those near Al Furjan. Image source: Al Ittihad..</figcaption>
+          </figure>
           <p class="muted">Large city projects matter, but everyday choices by thousands of students also add up to significant climate action over time.</p>
         </div>
       </div>
@@ -1456,12 +1455,9 @@
       updateQuizMessage();
     }
 
-        // Update quiz message and save score
     function updateQuizMessage() {
       const msg = document.getElementById('quizMessage');
-      const total = quizData.length;
-
-      if (answered < total / 2) {
+      if (answered < quizData.length / 2) {
         msg.textContent = 'Keep going – you are building strong climate knowledge.';
       } else if (score >= 8) {
         msg.textContent = 'Excellent! You could help lead climate projects at The Arbor School.';
@@ -1470,47 +1466,9 @@
       } else {
         msg.textContent = 'Everyone starts somewhere – revisit the sections and retake the quiz.';
       }
-
-      // Save score to local storage
-      localStorage.setItem('lastQuizScore', score);
-      localStorage.setItem('lastQuizTotal', total);
-      showSavedScore();
     }
 
-    // Reset quiz and clear memory if needed
     function resetQuiz() {
-      score = 0;
-      answered = 0;
-      renderQuiz();
-      document.getElementById('quizScore').textContent = '0';
-      document.getElementById('quizMessage').textContent = 'Quiz reset. Try to improve your score!';
-    }
-    window.resetQuiz = resetQuiz;
-
-    // Show saved score at bottom if it exists
-    function showSavedScore() {
-      const savedScore = localStorage.getItem('lastQuizScore');
-      const savedTotal = localStorage.getItem('lastQuizTotal');
-
-      let footerExtra = document.getElementById('savedScoreContainer');
-      if (!footerExtra) {
-        footerExtra = document.createElement('div');
-        footerExtra.id = 'savedScoreContainer';
-        footerExtra.style.marginTop = '0.6rem';
-        footerExtra.style.fontSize = '0.8rem';
-        document.querySelector('.quiz-footer').appendChild(footerExtra);
-      }
-
-      if (savedScore !== null && savedTotal !== null) {
-        footerExtra.textContent = `💾 Last saved score: ${savedScore} / ${savedTotal}`;
-      } else {
-        footerExtra.textContent = '';
-      }
-    }
-
-    renderQuiz();
-    showSavedScore();
-
       score = 0;
       answered = 0;
       renderQuiz();
