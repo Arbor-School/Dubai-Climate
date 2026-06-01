@@ -199,6 +199,7 @@
 
     .muted { color: var(--muted); font-size: 0.9rem; }
 
+    /* Hero */
     .hero {
       display: grid;
       gap: 1.6rem;
@@ -330,6 +331,7 @@
     .hero-card small { display: block; font-size: 0.7rem; color: var(--muted); }
     .hero-card strong { font-size: 0.8rem; color: var(--text); }
 
+    /* Large UAE graph card */
     .hero-card-large {
       background: rgba(248,250,252,0.95);
       border-radius: 18px;
@@ -346,8 +348,16 @@
 
     .hero-card-large small { display: block; font-size: 0.7rem; color: var(--muted); margin-bottom: 0.4rem; }
     .hero-card-large strong { display: block; font-size: 0.8rem; color: var(--text); margin-bottom: 0.5rem; }
-    .hero-card-large img { display: block; width: 100%; height: auto; border-radius: 10px; border: 1px solid rgba(148,163,184,0.3); }
 
+    .hero-card-large img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border-radius: 10px;
+      border: 1px solid rgba(148,163,184,0.3);
+    }
+
+    /* Grids */
     .grid-2 {
       display: grid;
       gap: 1.5rem;
@@ -372,6 +382,7 @@
     }
 
     body.dark .card { background: rgba(15,23,42,0.9); border-color: rgba(148,163,184,0.3); }
+
     .card:hover { transform: translateY(-4px); box-shadow: 0 18px 40px rgba(15,23,42,0.6); }
 
     .icon-badge {
@@ -416,6 +427,7 @@
       background: linear-gradient(to right, rgba(15,23,42,0.95), rgba(30,64,175,0.9));
     }
 
+    /* Stats */
     .stats-row { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 0.6rem; }
 
     .stat {
@@ -444,8 +456,10 @@
     }
 
     body.dark blockquote { background: rgba(15,23,42,0.8); }
+
     blockquote footer { font-size: 0.8rem; color: var(--muted); margin-top: 0.25rem; }
 
+    /* Solutions pill buttons */
     .pill-button {
       display: inline-flex;
       align-items: center;
@@ -469,7 +483,11 @@
     }
 
     .pill-button span.icon { font-size: 1rem; }
-    .pill-button:hover { transform: translateY(-1px); box-shadow: 0 12px 25px rgba(15,23,42,0.45); }
+
+    .pill-button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 12px 25px rgba(15,23,42,0.45);
+    }
 
     .tip {
       margin-top: 0.35rem;
@@ -487,6 +505,7 @@
       border-color: rgba(34,197,94,0.5);
     }
 
+    /* Feedback / Google Form */
     .form-wrapper {
       border-radius: 14px;
       overflow: hidden;
@@ -496,6 +515,7 @@
 
     .form-wrapper iframe { display: block; width: 100%; border: none; }
 
+    /* Contact */
     .contact-info {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(180px,1fr));
@@ -868,6 +888,7 @@
   </footer>
 
   <script>
+    // Dark mode toggle
     const darkToggle = document.getElementById('darkToggle');
     const body = document.body;
     if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
@@ -875,6 +896,7 @@
     }
     darkToggle.addEventListener('click', () => body.classList.toggle('dark'));
 
+    // Scroll progress bar
     const scrollProgress = document.getElementById('scrollProgress');
     window.addEventListener('scroll', () => {
       const scrollTop = window.scrollY;
@@ -882,6 +904,7 @@
       scrollProgress.style.width = ((scrollTop / docHeight) * 100) + '%';
     });
 
+    // Section reveal on scroll
     const sections = document.querySelectorAll('section');
     const revealOnScroll = () => {
       const triggerBottom = window.innerHeight * 0.9;
@@ -892,6 +915,7 @@
     window.addEventListener('scroll', revealOnScroll);
     window.addEventListener('load', revealOnScroll);
 
+    // Toggle tips
     function toggleTip(id) {
       const el = document.getElementById(id);
       if (!el) return;
@@ -899,6 +923,7 @@
     }
     window.toggleTip = toggleTip;
 
+    // Stats counter animation
     const statElements = document.querySelectorAll('.stat');
     let statsAnimated = false;
     function animateStats() {
@@ -925,6 +950,7 @@
     }
     window.addEventListener('scroll', animateStats);
 
+    // Charts
     const emissionsCtx = document.getElementById('emissionsChart');
     const waterCtx = document.getElementById('waterChart');
     if (emissionsCtx && waterCtx) {
